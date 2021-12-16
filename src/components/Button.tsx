@@ -1,1 +1,5 @@
-export const Button = () => <h1>Button</h1>;
+import { FC } from "react";
+
+export const Button: FC = ({ children = "Click Me" }) => (
+  <button>{children}</button>
+);

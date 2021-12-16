@@ -2,6 +2,19 @@
   "name": "tko-component-library",
   "version": "0.1.0",
   "private": true,
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "scripts": {
+    "start": "react-scripts start",
+    "build:app": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public",
+    "build": "rm -rf build && yarn build:src & yarn build:types",
+    "build:src": "NODE_ENV=production babel ./src --out-dir ./build --extensions \".ts,.tsx\" --ignore \"**/*.stories.tsx,**/*.stories.mdx,./src/setupTests.ts\"",
+    "build:types": "tsc --project tsconfig.json --emitDeclarationOnly --outDir ./build"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
@@ -16,16 +29,35 @@
     "typescript": "^4.4.2",
     "web-vitals": "^2.1.0"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+  "devDependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.5",
+    "@babel/preset-env": "^7.16.5",
+    "@babel/preset-react": "^7.16.5",
+    "@storybook/addon-actions": "^6.4.9",
+    "@storybook/addon-essentials": "^6.4.9",
+    "@storybook/addon-links": "^6.4.9",
+    "@storybook/builder-webpack5": "^6.4.9",
+    "@storybook/manager-webpack5": "^6.4.9",
+    "@storybook/node-logger": "^6.4.9",
+    "@storybook/preset-create-react-app": "^4.0.0",
+    "@storybook/react": "^6.4.9",
+    "webpack": "^5.65.0"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
     ]
   },
   "browserslist": {
